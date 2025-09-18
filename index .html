@@ -1,60 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>apple4u - The Second Life Market</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #007bff;
-            font-size: 2.5em;
-            margin-bottom: 0.5em;
-        }
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 2em;
-        }
-        .cta-button {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .cta-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Sahjas Jobs - Get Hired</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>apple4u</h1>
-        <p>buy refurbished product</p>
-        <p>Your one-stop destination for high-quality, pre-owned products. We give new life to old items, connecting buyers with reliable goods for a smarter, greener future.</p>
-        <a href="https://your-social-media-link-here" class="cta-button">Visit Our Store</a>
+  <header>
+    <h1>Sahjas Jobs</h1>
+    <nav>
+      <button onclick="showSection('jobs')">Jobs</button>
+      <button onclick="showSection('postJob')">Post Job</button>
+      <button onclick="showSection('auth')">Login/Register</button>
+    </nav>
+  </header>
+
+  <!-- Authentication -->
+  <section id="auth" class="hidden">
+    <h2>User Account</h2>
+    <div>
+      <h3>Register</h3>
+      <input id="regUser" placeholder="Username">
+      <input id="regPass" type="password" placeholder="Password">
+      <button onclick="register()">Register</button>
     </div>
+    <div>
+      <h3>Login</h3>
+      <input id="logUser" placeholder="Username">
+      <input id="logPass" type="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+    </div>
+    <div id="userInfo"></div>
+  </section>
+
+  <!-- Post Job -->
+  <section id="postJob" class="hidden">
+    <h2>Post a Job</h2>
+    <input id="jobTitle" placeholder="Job Title">
+    <input id="jobEmployer" placeholder="Employer Name">
+    <input id="jobSalary" placeholder="Salary (e.g. ₹38000)">
+    <textarea id="jobDesc" placeholder="Job Description"></textarea>
+    <button onclick="postJob()">Submit Job</button>
+  </section>
+
+  <!-- Job Listings -->
+  <section id="jobs">
+    <h2>Available Jobs</h2>
+    <div id="jobList"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 Sahjas Jobs – Get Hired Today</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

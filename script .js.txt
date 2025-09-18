@@ -1,0 +1,83 @@
+let currentUser = null;
+
+// Show selected section
+function showSection(id) {
+  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+// Register user
+function register() {
+  const user = document.getElementById("regUser").value;
+  const pass = document.getElementById("regPass").value;
+  if (!user || !pass) return alert("Enter username and password");
+  
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  if (users.find(u => u.username === user)) return alert("User already exists");
+  
+  users.push({ username: user, password: pass });
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Registered successfully! Now login.");
+}
+
+// Login user
+function login() {
+  const user = document.getElementById("logUser").value;
+  const pass = document.getElementById("logPass").value;
+  
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  const found = users.find(u => u.username === user && u.password === pass);
+  if (!found) return alert("Invalid login");
+  
+  currentUser = user;
+  document.getElementById("userInfo").innerText = "Logged in as " + user;
+  alert("Welcome, " + user);
+}
+
+// Post a job
+function postJob() {
+  if (!currentUser) return alert("Login to post a job");
+  
+  const title = document.getElementById("jobTitle").value;
+  const employer = document.getElementById("jobEmployer").value;
+  const salary = document.getElementById("jobSalary").value;
+  const desc = document.getElementById("jobDesc").value;
+  
+  if (!title || !employer || !salary || !desc) return alert("Fill all fields");
+  
+  let jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+  jobs.unshift({ title, employer, salary, desc, postedBy: currentUser, date: new Date().toLocaleDateString() });
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+  
+  alert("Job posted!");
+  loadJobs();
+  showSection("jobs");
+}
+
+// Load jobs
+function loadJobs() {
+  let jobs = JSON.parse(localStorage.getItem("jobs") || "[]");
+  const container = document.getElementById("jobList");
+  container.innerHTML = "";
+  
+  if (jobs.length === 0) {
+    container.innerHTML = "<p>No jobs available yet. Be the first to post!</p>";
+    return;
+  }
+  
+  jobs.forEach(job => {
+    const div = document.createElement("div");
+    div.className = "jobCard";
+    div.innerHTML = `
+      <h3>${job.title}</h3>
+      <p><b>Employer:</b> ${job.employer}</p>
+      <p class="salary">Salary: ${job.salary}</p>
+      <p>${job.desc}</p>
+      <small>Posted by ${job.postedBy} on ${job.date}</small>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// On load
+loadJobs();
